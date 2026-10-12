@@ -1,0 +1,41 @@
+{
+  "device": {
+    "id": "smart_socket_01",
+    "name": "مقبس غرفة المعيشة الذكي",
+    "deviceType": "cooling",
+    "firmwareVersion": "1.0.0",
+    "relayActiveHigh": true
+  },
+  "network": {
+    "wifiSsid": "YOUR_WIFI_SSID",
+    "wifiPassword": "YOUR_WIFI_PASSWORD",
+    "ntpServer": "pool.ntp.org",
+    "reconnectIntervalMs": 5000
+  },
+  "cloud": {
+    "service": "firebase_rtdb",
+    "databaseUrl": "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+    "deviceToken": "SECRET_DEVICE_TOKEN_PLACEHOLDER",
+    "telemetryBatchIntervalSec": 15
+  },
+  "safetyLimits": {
+    "absoluteMinTemp": 5.0,
+    "absoluteMaxTemp": 45.0,
+    "sensorMaxAgeSec": 30,
+    "maxContinuousRuntimeSec": {
+      "heating": 1800,
+      "cooling": 14400,
+      "compressor": 7200,
+      "generic": 7200
+    },
+    "compressorMinOffTimeSec": 180,
+    "compressorMinOnTimeSec": 120,
+    "remoteHeatingAutoOffTimerSec": 1800
+  },
+  "controlDefaults": {
+    "mode": "auto",
+    "targetMinTemp": 22.0,
+    "targetMaxTemp": 26.0,
+    "hysteresis": 0.5
+  }
+}

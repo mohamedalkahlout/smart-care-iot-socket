@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "author": "Anonymous",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-dht22", "id": "dht1", "top": -114.9, "left": -111, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -61.2,
+      "left": 128.6,
+      "attrs": { "color": "green" }
+    }
+  ],
+  "connections": [
+    [ "dht1:VCC", "esp:3V3", "red", [ "h0", "v0" ] ],
+    [ "dht1:GND", "esp:GND.2", "black", [ "v-9.6", "h182.4", "v38.4" ] ],
+    [ "dht1:SDA", "esp:15", "yellow", [ "h0", "v0" ] ],
+    [ "led1:A", "esp:2", "green", [ "h0", "v0" ] ],
+    [ "led1:C", "esp:GND.1", "cyan", [ "h0", "v0" ] ]
+  ],
+  "dependencies": {}
+}

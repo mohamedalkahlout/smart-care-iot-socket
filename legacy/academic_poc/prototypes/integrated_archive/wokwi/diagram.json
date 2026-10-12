@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "author": "SmartCare Engineering Team",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-relay-module", "id": "relay1", "top": -120, "left": 150, "attrs": {} },
+    { "type": "wokwi-relay-module", "id": "relay2", "top": -20, "left": 150, "attrs": {} },
+    { "type": "wokwi-relay-module", "id": "relay3", "top": 80, "left": 150, "attrs": {} },
+    { "type": "wokwi-relay-module", "id": "relay4", "top": 180, "left": 150, "attrs": {} },
+    { "type": "wokwi-dht22", "id": "dht1", "top": 280, "left": -80, "attrs": {} },
+    { "type": "wokwi-pushbutton", "id": "btn_emergency", "top": 200, "left": -100, "attrs": { "color": "red" } },
+    { "type": "wokwi-led", "id": "led_status", "top": 120, "left": -80, "attrs": { "color": "red" } }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "relay1:IN", "esp:2", "yellow", [] ],
+    [ "relay1:VCC", "esp:3V3", "red", [] ],
+    [ "relay1:GND", "esp:GND.1", "black", [] ],
+    [ "relay2:IN", "esp:18", "yellow", [] ],
+    [ "relay2:VCC", "esp:3V3", "red", [] ],
+    [ "relay2:GND", "esp:GND.1", "black", [] ],
+    [ "relay3:IN", "esp:19", "yellow", [] ],
+    [ "relay3:VCC", "esp:3V3", "red", [] ],
+    [ "relay3:GND", "esp:GND.1", "black", [] ],
+    [ "relay4:IN", "esp:21", "yellow", [] ],
+    [ "relay4:VCC", "esp:3V3", "red", [] ],
+    [ "relay4:GND", "esp:GND.1", "black", [] ],
+    [ "dht1:VCC", "esp:3V3", "red", [] ],
+    [ "dht1:GND", "esp:GND.2", "black", [] ],
+    [ "dht1:SDA", "esp:15", "green", [] ],
+    [ "btn_emergency:1.l", "esp:4", "red", [] ],
+    [ "btn_emergency:2.r", "esp:GND.2", "black", [] ],
+    [ "led_status:A", "esp:13", "purple", [] ],
+    [ "led_status:C", "esp:GND.2", "black", [] ]
+  ],
+  "dependencies": {}
+}

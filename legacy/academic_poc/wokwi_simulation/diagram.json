@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "author": "Smart Socket Development Team",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": -4.76, "attrs": {} },
+    { "type": "wokwi-relay-module", "id": "relay1", "top": -57.4, "left": 134.4, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 179,
+      "left": 115.2,
+      "attrs": { "color": "green", "label": "Manual Override (GPIO4)" }
+    },
+    { "type": "wokwi-dht22", "id": "dht1", "top": 249.9, "left": 23.4, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led_alert",
+      "top": 70,
+      "left": 180,
+      "attrs": { "color": "yellow", "label": "Remote Alert (GPIO18)" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_status",
+      "top": 120,
+      "left": 180,
+      "attrs": { "color": "green", "label": "Heartbeat/WiFi (GPIO19)" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "relay1:IN", "esp:2", "yellow", [ "v95.8", "h-38.4" ] ],
+    [ "relay1:VCC", "esp:3V3", "red", [ "h-172.8", "v67.2" ] ],
+    [ "relay1:GND", "esp:GND.1", "cyan", [ "v-0.4", "h-192", "v182.4" ] ],
+    [ "btn1:1.l", "esp:4", "green", [ "v-48", "h-19.2" ] ],
+    [ "btn1:2.r", "esp:GND.1", "black", [ "h-201.4", "v-57.4" ] ],
+    [ "dht1:VCC", "esp:3V3", "blue", [ "h-67.2", "v-336" ] ],
+    [ "dht1:GND", "esp:GND.2", "green", [ "h201.6", "v-336" ] ],
+    [ "dht1:SDA", "esp:15", "yellow", [ "v28.8", "h163.3", "v-220.8" ] ],
+    [ "led_alert:A", "esp:18", "orange", [] ],
+    [ "led_alert:C", "esp:GND.1", "black", [] ],
+    [ "led_status:A", "esp:19", "green", [] ],
+    [ "led_status:C", "esp:GND.1", "black", [] ]
+  ],
+  "dependencies": {}
+}

@@ -1,0 +1,50 @@
+{
+  "sockets": {
+    "socket1": {
+      "name": "المقبس الحراري (سخان / مبرد)",
+      "status": "off",
+      "mode": "auto",
+      "currentTemp": 24.5,
+      "minTemp": 20.0,
+      "maxTemp": 28.0,
+      "type": "thermal",
+      "relayPin": 2,
+      "lastSafetyReason": "INIT_STANDBY"
+    },
+    "socket2": {
+      "name": "مضخة المياه (ماتور)",
+      "status": "off",
+      "mode": "manual",
+      "maxRuntimeMins": 20,
+      "type": "pump",
+      "relayPin": 18,
+      "lastSafetyReason": "INIT_STANDBY"
+    },
+    "socket3": {
+      "name": "التلفاز والأجهزة الترفيهية",
+      "status": "off",
+      "mode": "manual",
+      "autoOffHours": 4,
+      "type": "appliance",
+      "relayPin": 19,
+      "lastSafetyReason": "INIT_STANDBY"
+    },
+    "socket4": {
+      "name": "التكييف (ضاغط تبريد)",
+      "status": "off",
+      "mode": "auto",
+      "minTemp": 22.0,
+      "maxTemp": 26.0,
+      "type": "ac",
+      "relayPin": 21,
+      "lastSafetyReason": "INIT_STANDBY"
+    }
+  },
+  "system": {
+    "emergencyShutdown": false,
+    "wifiConnected": true,
+    "uptimeSeconds": 0,
+    "lastHeartbeat": 1728734400,
+    "firebaseUrl": "https://mohamednael-467e0-default-rtdb.firebaseio.com"
+  }
+}

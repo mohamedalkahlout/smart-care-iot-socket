@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SmartCareHubDatabaseSchema",
+  "type": "object",
+  "properties": {
+    "sockets": {
+      "type": "object",
+      "properties": {
+        "socket1": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "status": { "type": "string", "enum": ["on", "off"] },
+            "mode": { "type": "string", "enum": ["manual", "auto"] },
+            "currentTemp": { "type": "number" },
+            "minTemp": { "type": "number" },
+            "maxTemp": { "type": "number" },
+            "type": { "type": "string" }
+          },
+          "required": ["status", "mode"]
+        },
+        "socket2": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "status": { "type": "string", "enum": ["on", "off"] },
+            "mode": { "type": "string", "enum": ["manual", "auto"] },
+            "maxRuntimeMins": { "type": "number" },
+            "type": { "type": "string" }
+          },
+          "required": ["status", "mode"]
+        },
+        "socket3": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "status": { "type": "string", "enum": ["on", "off"] },
+            "mode": { "type": "string", "enum": ["manual", "auto"] },
+            "autoOffHours": { "type": "number" },
+            "type": { "type": "string" }
+          },
+          "required": ["status", "mode"]
+        },
+        "socket4": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "status": { "type": "string", "enum": ["on", "off"] },
+            "mode": { "type": "string", "enum": ["manual", "auto"] },
+            "minTemp": { "type": "number" },
+            "maxTemp": { "type": "number" },
+            "type": { "type": "string" }
+          },
+          "required": ["status", "mode"]
+        }
+      },
+      "required": ["socket1", "socket2", "socket3", "socket4"]
+    },
+    "system": {
+      "type": "object",
+      "properties": {
+        "emergencyShutdown": { "type": "boolean" },
+        "wifiConnected": { "type": "boolean" },
+        "uptimeSeconds": { "type": "number" },
+        "lastHeartbeat": { "type": "number" }
+      },
+      "required": ["emergencyShutdown"]
+    }
+  },
+  "required": ["sockets", "system"]
+}

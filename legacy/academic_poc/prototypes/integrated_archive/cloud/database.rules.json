@@ -1,0 +1,91 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": true,
+    "sockets": {
+      "socket1": {
+        ".validate": "newData.hasChildren(['status', 'mode'])",
+        "status": {
+          ".validate": "newData.isString() && (newData.val() === 'on' || newData.val() === 'off')"
+        },
+        "mode": {
+          ".validate": "newData.isString() && (newData.val() === 'manual' || newData.val() === 'auto')"
+        },
+        "minTemp": {
+          ".validate": "newData.isNumber() && newData.val() >= -10 && newData.val() <= 60"
+        },
+        "maxTemp": {
+          ".validate": "newData.isNumber() && newData.val() >= -10 && newData.val() <= 60"
+        },
+        "currentTemp": {
+          ".validate": "newData.isNumber() && newData.val() >= -40 && newData.val() <= 85"
+        },
+        "type": {
+          ".validate": "newData.isString()"
+        }
+      },
+      "socket2": {
+        ".validate": "newData.hasChildren(['status', 'mode'])",
+        "status": {
+          ".validate": "newData.isString() && (newData.val() === 'on' || newData.val() === 'off')"
+        },
+        "mode": {
+          ".validate": "newData.isString() && (newData.val() === 'manual' || newData.val() === 'auto')"
+        },
+        "maxRuntimeMins": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 60"
+        },
+        "type": {
+          ".validate": "newData.isString()"
+        }
+      },
+      "socket3": {
+        ".validate": "newData.hasChildren(['status', 'mode'])",
+        "status": {
+          ".validate": "newData.isString() && (newData.val() === 'on' || newData.val() === 'off')"
+        },
+        "mode": {
+          ".validate": "newData.isString() && (newData.val() === 'manual' || newData.val() === 'auto')"
+        },
+        "autoOffHours": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 24"
+        },
+        "type": {
+          ".validate": "newData.isString()"
+        }
+      },
+      "socket4": {
+        ".validate": "newData.hasChildren(['status', 'mode'])",
+        "status": {
+          ".validate": "newData.isString() && (newData.val() === 'on' || newData.val() === 'off')"
+        },
+        "mode": {
+          ".validate": "newData.isString() && (newData.val() === 'manual' || newData.val() === 'auto')"
+        },
+        "minTemp": {
+          ".validate": "newData.isNumber() && newData.val() >= 15 && newData.val() <= 35"
+        },
+        "maxTemp": {
+          ".validate": "newData.isNumber() && newData.val() >= 15 && newData.val() <= 35"
+        },
+        "type": {
+          ".validate": "newData.isString()"
+        }
+      }
+    },
+    "system": {
+      "emergencyShutdown": {
+        ".validate": "newData.isBoolean()"
+      },
+      "wifiConnected": {
+        ".validate": "newData.isBoolean()"
+      },
+      "uptimeSeconds": {
+        ".validate": "newData.isNumber()"
+      },
+      "lastHeartbeat": {
+        ".validate": "newData.isNumber()"
+      }
+    }
+  }
+}

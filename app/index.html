@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحة تحكم المقبس الذكي لمقدمي الرعاية | Smart Care Socket</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <span class="logo-icon">🛡️</span>
+        <div>
+          <h1 id="app-title">المقبس الذكي الآمن</h1>
+          <p id="app-subtitle" class="subtitle">نظام رعاية كبار السن والأطفال بالأجهزة الحرارية</p>
+        </div>
+      </div>
+      <div class="header-controls">
+        <button id="lang-toggle-btn" class="secondary-btn" aria-label="تبديل اللغة">English</button>
+        <div class="role-badge" id="role-badge" title="صلاحية المستخدم الحالية">دور: مقدم رعاية (Caregiver)</div>
+      </div>
+    </header>
+
+    <!-- Emergency Safety Banner -->
+    <section class="emergency-bar" aria-label="زر الطوارئ">
+      <button id="emergency-off-btn" class="emergency-btn">
+        🛑 <span id="emergency-btn-text">إطفاء فوري للطوارئ</span>
+      </button>
+    </section>
+
+    <!-- Main Grid -->
+    <main class="dashboard-grid">
+      <!-- Card 1: Primary Socket Status -->
+      <section class="card main-status-card" aria-labelledby="status-card-title">
+        <div class="card-header">
+          <h2 id="status-card-title">المقبس الرئيسي (غرفة المعيشة)</h2>
+          <span class="device-type-tag" id="device-type-tag">مروحة / تبريد</span>
+        </div>
+        
+        <div class="status-visual">
+          <div class="socket-circle off" id="socket-visual-circle">
+            <span class="socket-icon" id="socket-icon">🔌</span>
+            <span class="state-label" id="socket-state-label">متوقف</span>
+          </div>
+          <div class="status-summary-text">
+            <h3 id="verbal-status-heading">الجهاز في وضع الأمان</h3>
+            <p id="verbal-status-desc" class="verbal-desc">حرارة الغرفة 23.5°م ضمن النطاق المريح. آخر قرار اتخذه حارس الأمان.</p>
+          </div>
+        </div>
+
+        <div class="decision-source-box">
+          <span class="source-label">مصدر القرار الحالي:</span>
+          <span class="source-badge" id="decision-source-badge">قاعدة تلقائية (Auto Rule)</span>
+          <p class="source-reason" id="decision-reason-text">سبب الإجراء: الحرارة ضمن المجال المسموح</p>
+        </div>
+
+        <div class="card-actions">
+          <button id="toggle-manual-btn" class="action-btn primary-action">تشغيل يدوي مؤقت</button>
+        </div>
+      </section>
+
+      <!-- Card 2: Environment & Metrics -->
+      <section class="card metrics-card" aria-labelledby="metrics-title">
+        <h2 id="metrics-title">مستشعرات البيئة الحية</h2>
+        <div class="metric-row">
+          <div class="metric-item">
+            <span class="metric-icon">🌡️</span>
+            <div>
+              <span class="metric-label">الحرارة الحالية</span>
+              <div class="metric-value"><span id="metric-temp">23.5</span> °C</div>
+            </div>
+          </div>
+          <div class="metric-item">
+            <span class="metric-icon">💧</span>
+            <div>
+              <span class="metric-label">الرطوبة النسبية</span>
+              <div class="metric-value"><span id="metric-humidity">46</span> %</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-item">
+            <span class="metric-icon">⚡</span>
+            <div>
+              <span class="metric-label">القدرة اللحظية</span>
+              <div class="metric-value"><span id="metric-power">0</span> W</div>
+            </div>
+          </div>
+          <div class="metric-item">
+            <span class="metric-icon">📡</span>
+            <div>
+              <span class="metric-label">حالة الشبكة</span>
+              <div class="metric-value status-online" id="metric-network">متصل (NTP)</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Card 3: Safe Temperature Control -->
+      <section class="card controls-card" aria-labelledby="control-title">
+        <h2 id="control-title">إعدادات التحكم المريح</h2>
+        <div class="form-group">
+          <label for="mode-select">وضع التشغيل:</label>
+          <select id="mode-select" class="form-control">
+            <option value="auto">تلقائي (ذكاء حراري مع حارس الأمان)</option>
+            <option value="manual">يدوي (تحت إشراف مقدم الرعاية)</option>
+          </select>
+        </div>
+
+        <div class="limits-grid" id="limits-container">
+          <div class="form-group">
+            <label for="min-temp-input">الحد الأدنى للراحة (°م):</label>
+            <input type="number" id="min-temp-input" class="form-control" value="21.0" min="15" max="30" step="0.5" />
+          </div>
+          <div class="form-group">
+            <label for="max-temp-input">الحد الأقصى للراحة (°م):</label>
+            <input type="number" id="max-temp-input" class="form-control" value="25.0" min="18" max="32" step="0.5" />
+          </div>
+        </div>
+        <button id="save-setpoints-btn" class="action-btn save-btn">حفظ وتطبيق الحدود</button>
+      </section>
+
+      <!-- Card 4: Secure NLP Command Assistant -->
+      <section class="card nlp-card" aria-labelledby="nlp-title">
+        <div class="card-header">
+          <h2 id="nlp-title">مساعد الأوامر الذكي المقيد (NLP Assistant)</h2>
+          <span class="device-type-tag" style="background: rgba(168, 85, 247, 0.2); color: #c084fc;">JSON Schema Enforced</span>
+        </div>
+        <p class="verbal-desc">أدخل أمرًا نصيًا بلغة طبيعية. يتم التحقق من الأمان عبر المخطط ورفض الأوامر الخطرة تلقائيًا:</p>
+        <div class="nlp-input-group" style="display: flex; gap: 8px; margin: 12px 0;">
+          <input type="text" id="nlp-command-input" class="form-control" placeholder="مثال: اجعل الحرارة بين 22 و 24 أو شغل السخان 15 دقيقة" />
+          <button id="nlp-send-btn" class="action-btn primary-action" style="white-space: nowrap; padding: 10px 16px;">إرسال وفحص</button>
+        </div>
+        <div class="nlp-samples" style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;">
+          <button class="nlp-chip" data-cmd="اجعل الحرارة بين 22 و 25">🌡️ ضبط 22-25°م</button>
+          <button class="nlp-chip" data-cmd="شغل السخان 20 دقيقة">⏱️ سخان 20 دقيقة</button>
+          <button class="nlp-chip" data-cmd="اطفئ المقبس فورا">🛑 إطفاء المقبس</button>
+          <button class="nlp-chip dangerous" data-cmd="شغل السخان طول الوقت" style="color: #f87171;">⚠️ تجربة أمر خطر (مرفوض)</button>
+        </div>
+        <div id="nlp-result-box" class="nlp-result-box" style="display: none; background: rgba(0,0,0,0.25); padding: 10px; border-radius: 8px; font-size: 13px; border: 1px solid var(--border-color);">
+          <div id="nlp-result-status" style="font-weight: bold; margin-bottom: 4px;"></div>
+          <pre id="nlp-result-json" style="font-family: monospace; background: rgba(0,0,0,0.4); padding: 8px; border-radius: 4px; overflow-x: auto; font-size: 11px; margin: 0;"></pre>
+        </div>
+      </section>
+
+      <!-- Card 5: Safety Guard Status & Active Protection -->
+      <section class="card safety-guard-card" aria-labelledby="safety-title">
+        <h2 id="safety-title">حارس الأمان الفيزيائي (Hardware Guard)</h2>
+        <ul class="safety-checklist">
+          <li class="check-item ok"><span>✅</span> سقف التشغيل المستمر: 30 دقيقة (سخان) / 2 ساعة (ضاغط)</li>
+          <li class="check-item ok"><span>✅</span> قاطع الحرارة المطلق: إطفاء إجباري عند 35°م / 45°م</li>
+          <li class="check-item ok"><span>✅</span> صلاحية الحساس: إطفاء فوري عند فقد الإشارة لأكثر من 30 ثانية</li>
+          <li class="check-item ok"><span>✅</span> حماية الضاغط: تأخير 180 ثانية لمنع الاحتراق الميكانيكي</li>
+        </ul>
+        <div class="safety-state-alert" id="guard-state-alert">الحارس في حالة مراقبة نشطة — لا توجد انتهاكات.</div>
+      </section>
+    </main>
+
+    <!-- Caregiver Notifications Bar -->
+    <section class="notifications-section">
+      <h2>سجل التنبيهات والأحداث الأخيرة</h2>
+      <div class="notifications-list" id="notifications-list">
+        <div class="notif-item info">
+          <span class="notif-time">13:40</span>
+          <span class="notif-text">تمت مزامنة قراءات الحرارة بنجاح وفق سجل التليمترية.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>مشروع المقبس الذكي مفتوح المصدر (Apache 2.0) | مرخص أكاديميًا ومصمم وفق مبدأ الأمان أولاً (Safety-First Architecture)</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

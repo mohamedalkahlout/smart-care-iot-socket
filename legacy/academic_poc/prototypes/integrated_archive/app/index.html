@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartCare Hub | لوحة تحكم المقابس الذكية المتكاملة</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header with Title, Status & Language Switcher -->
+  <header class="app-header">
+    <div class="header-content">
+      <div class="brand">
+        <span class="brand-icon">⚡</span>
+        <div>
+          <h1 id="txt-title">منظومة المقابس الذكية الشاملة</h1>
+          <p class="subtitle" id="txt-subtitle">SmartCare Multi-Channel IoT Safety & Power Strip</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div id="connection-status" class="status-badge connecting">
+          <span class="status-dot"></span>
+          <span id="txt-status">جارٍ الاتصال بالنظام...</span>
+        </div>
+        <button id="lang-toggle-btn" class="lang-btn" aria-label="تبديل اللغة">English</button>
+      </div>
+    </div>
+
+    <!-- Master Emergency Button -->
+    <div class="emergency-bar">
+      <button id="emergency-btn" class="emergency-btn" aria-label="إيقاف الطوارئ الشامل لكافة القنوات">
+        🛑 <span id="txt-emergency">إيقاف الطوارئ الشامل (All-Off)</span>
+      </button>
+      <div class="live-telemetry-pill">
+        🌡️ <span id="txt-current-temp-label">الحرارة الحالية:</span>
+        <strong id="live-temp-display">--.-</strong> °C
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Multi-Socket Grid (4 Fully-Functional Channels) -->
+  <main class="grid-container">
+
+    <!-- Socket 1: Thermal Appliance -->
+    <section class="socket-card" id="card-socket1">
+      <div class="card-header">
+        <div class="channel-tag">قناة 1 • Channel 1</div>
+        <span class="device-badge" id="s1-badge">سخان / مبرد حراري</span>
+      </div>
+      <div class="card-body">
+        <div class="plug-visual">
+          <button id="s1-toggle-btn" class="plug-btn off" aria-label="تبديل مقبس 1">
+            🔌
+          </button>
+          <div class="state-label" id="s1-state-text">الحالة: متوقف</div>
+        </div>
+
+        <div class="control-group">
+          <label id="lbl-s1-mode">وضع التحكم:</label>
+          <select id="s1-mode-select">
+            <option value="auto">تلقائي حراري (Auto Hysteresis)</option>
+            <option value="manual">يدوي (Manual)</option>
+          </select>
+        </div>
+
+        <div class="limits-box" id="s1-limits-box">
+          <div class="input-row">
+            <div>
+              <label id="lbl-s1-min">الحد الأدنى (°C):</label>
+              <input id="s1-min-input" type="number" step="0.5" value="20.0" />
+            </div>
+            <div>
+              <label id="lbl-s1-max">الحد الأقصى (°C):</label>
+              <input id="s1-max-input" type="number" step="0.5" value="28.0" />
+            </div>
+          </div>
+          <button id="s1-save-btn" class="save-btn">حفظ الإعدادات</button>
+        </div>
+
+        <div class="safety-reason" id="s1-safety-reason">الأمان: STANDBY_OK</div>
+      </div>
+    </section>
+
+    <!-- Socket 2: Water Pump Motor -->
+    <section class="socket-card" id="card-socket2">
+      <div class="card-header">
+        <div class="channel-tag">قناة 2 • Channel 2</div>
+        <span class="device-badge">مضخة المياه (ماتور)</span>
+      </div>
+      <div class="card-body">
+        <div class="plug-visual">
+          <button id="s2-toggle-btn" class="plug-btn off" aria-label="تبديل مقبس 2">
+            🚰
+          </button>
+          <div class="state-label" id="s2-state-text">الحالة: متوقف</div>
+        </div>
+
+        <div class="control-group">
+          <label id="lbl-s2-mode">وضع التشغيل:</label>
+          <select id="s2-mode-select">
+            <option value="manual">يدوي مع سقف زمني (Manual Cutoff)</option>
+            <option value="auto">تلقائي بجدولة الخزان (Auto Tank)</option>
+          </select>
+        </div>
+
+        <div class="limits-box">
+          <div class="input-row">
+            <div>
+              <label id="lbl-s2-max-runtime">أقصى وقت تشغيل (دقيقة):</label>
+              <input id="s2-max-runtime-input" type="number" step="1" min="1" max="60" value="20" />
+            </div>
+          </div>
+          <p class="hint-text" id="hint-s2">حماية تلقائية من احتراق الموتور وفيضان الخزان</p>
+          <button id="s2-save-btn" class="save-btn">حفظ سقف الضخ</button>
+        </div>
+
+        <div class="safety-reason" id="s2-safety-reason">الأمان: PUMP_COOLDOWN_READY</div>
+      </div>
+    </section>
+
+    <!-- Socket 3: TV & Workstation -->
+    <section class="socket-card" id="card-socket3">
+      <div class="card-header">
+        <div class="channel-tag">قناة 3 • Channel 3</div>
+        <span class="device-badge">التلفاز والأجهزة الترفيهية</span>
+      </div>
+      <div class="card-body">
+        <div class="plug-visual">
+          <button id="s3-toggle-btn" class="plug-btn off" aria-label="تبديل مقبس 3">
+            📺
+          </button>
+          <div class="state-label" id="s3-state-text">الحالة: متوقف</div>
+        </div>
+
+        <div class="control-group">
+          <label id="lbl-s3-mode">وضع التوفير:</label>
+          <select id="s3-mode-select">
+            <option value="manual">يدوي (Manual On/Off)</option>
+            <option value="auto">إطفاء ذكي لطاقة الاستعداد (Eco Standby)</option>
+          </select>
+        </div>
+
+        <div class="limits-box">
+          <div class="input-row">
+            <div>
+              <label id="lbl-s3-auto-off">إيقاف تلقائي بعد (ساعة):</label>
+              <input id="s3-auto-off-input" type="number" step="1" min="1" max="12" value="4" />
+            </div>
+          </div>
+          <p class="hint-text" id="hint-s3">القضاء على هدر الاستعداد (Vampire Drain)</p>
+          <button id="s3-save-btn" class="save-btn">تحديث المؤقت</button>
+        </div>
+
+        <div class="safety-reason" id="s3-safety-reason">الأمان: STANDBY_MONITOR_ON</div>
+      </div>
+    </section>
+
+    <!-- Socket 4: AC Compressor -->
+    <section class="socket-card" id="card-socket4">
+      <div class="card-header">
+        <div class="channel-tag">قناة 4 • Channel 4</div>
+        <span class="device-badge">التكييف (ضاغط حثي)</span>
+      </div>
+      <div class="card-body">
+        <div class="plug-visual">
+          <button id="s4-toggle-btn" class="plug-btn off" aria-label="تبديل مقبس 4">
+            ❄️
+          </button>
+          <div class="state-label" id="s4-state-text">الحالة: متوقف</div>
+        </div>
+
+        <div class="control-group">
+          <label id="lbl-s4-mode">وضع التبريد:</label>
+          <select id="s4-mode-select">
+            <option value="auto">تبريد ذكي (Anti-Short-Cycle Auto)</option>
+            <option value="manual">يدوي محمي (Protected Manual)</option>
+          </select>
+        </div>
+
+        <div class="limits-box" id="s4-limits-box">
+          <div class="input-row">
+            <div>
+              <label id="lbl-s4-min">حد الإيقاف (°C):</label>
+              <input id="s4-min-input" type="number" step="0.5" value="22.0" />
+            </div>
+            <div>
+              <label id="lbl-s4-max">حد التشغيل (°C):</label>
+              <input id="s4-max-input" type="number" step="0.5" value="26.0" />
+            </div>
+          </div>
+          <p class="hint-text" id="hint-s4">تأخير 3 دقائق إلزامي لحماية ملفات الضاغط</p>
+          <button id="s4-save-btn" class="save-btn">حفظ نطاق التبريد</button>
+        </div>
+
+        <div class="safety-reason" id="s4-safety-reason">الأمان: COMPRESSOR_SAFE_STANDBY</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer & System Telemetry -->
+  <footer class="app-footer">
+    <div class="system-meta">
+      <span>🔗 السحابة: <strong id="cloud-endpoint">mohamednael-467e0</strong></span>
+      <span>⏱️ زمن التشغيل: <strong id="uptime-display">0 ثانية</strong></span>
+      <span>🛡️ حارس الأمان C: <strong class="badge-success">نشط 100%</strong></span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
